@@ -7,16 +7,17 @@ const Header: React.FC = () => {
 
   return (
     <header className="w-full bg-white/80 backdrop-blur-sm shadow-md sticky top-0 z-10">
-      <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between text-center sm:text-left relative">
-        <div>
+      <div className="container mx-auto px-4 py-4 flex flex-col items-center sm:flex-row sm:justify-between relative">
+        {/* Text Section */}
+        <div className="text-center sm:text-left">
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 tracking-tight">
             {t('header.title')}
           </h1>
           <p className="text-gray-600 mt-1">{t('header.subtitle')}</p>
         </div>
 
-        {/* Move Language Switcher to top-right or below text on mobile */}
-        <div className="mt-3 sm:mt-0 sm:ml-4">
+        {/* Language Switcher Section */}
+        <div className="mt-3 sm:mt-0 sm:absolute sm:right-4 sm:top-1/2 sm:-translate-y-1/2">
           <LanguageSwitcher />
         </div>
       </div>
