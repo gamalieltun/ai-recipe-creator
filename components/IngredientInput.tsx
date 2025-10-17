@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface IngredientInputProps {
     onGenerateRecipe: (ingredients: string[], servings: number, cuisine: string) => void;
@@ -11,6 +12,7 @@ const cuisines = [
 ];
 
 const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loading }) => {
+    const { t } = useLanguage();
     const [currentIngredient, setCurrentIngredient] = useState('');
     const [ingredients, setIngredients] = useState<string[]>(['chicken breast', 'rice', 'broccoli']);
     const [servings, setServings] = useState<number>(4);
@@ -37,7 +39,7 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
     return (
         <div className="w-full max-w-2xl mx-auto">
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl shadow-lg">
-                <h2 className="text-2xl font-bold text-gray-700 mb-4">Enter Your Ingredients</h2>
+                <h2 className="text-2xl font-bold text-gray-700 mb-4">{t('input.title')}</h2>
                 <div className="flex flex-col sm:flex-row gap-4 mb-6">
                     <input
                         type="text"
@@ -49,7 +51,7 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
                                 handleAddIngredient();
                             }
                         }}
-                        placeholder="e.g., tomatoes, cheese, basil"
+                        placeholder={t('input.placeholder')}
                         className="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
                         disabled={loading}
                     />
@@ -59,7 +61,7 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
                         className="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-300 disabled:bg-indigo-300"
                         disabled={loading}
                     >
-                        Add
+                        {t('input.add')}
                     </button>
                 </div>
 
@@ -85,7 +87,7 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
 
                 <div className="flex flex-col sm:flex-row gap-4 mb-6">
                     <div className="flex-1">
-                        <label htmlFor="servings" className="block text-sm font-medium text-gray-700 mb-1">Servings</label>
+                        <label htmlFor="servings" className="block text-sm font-medium text-gray-700 mb-1">{t('input.servings')}</label>
                         <input
                             type="number"
                             id="servings"
@@ -97,7 +99,7 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
                         />
                     </div>
                     <div className="flex-1">
-                        <label htmlFor="cuisine" className="block text-sm font-medium text-gray-700 mb-1">Cuisine</label>
+                        <label htmlFor="cuisine" className="block text-sm font-medium text-gray-700 mb-1">{t('input.cuisine')}</label>
                         <select
                             id="cuisine"
                             value={cuisine}
@@ -111,13 +113,12 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
                     </div>
                 </div>
 
-
                 <button
                     type="submit"
                     className="w-full bg-green-600 text-white font-bold py-4 px-6 rounded-lg hover:bg-green-700 transition duration-300 disabled:bg-green-300 text-lg"
                     disabled={loading || ingredients.length === 0}
                 >
-                    {loading ? 'Creating Magic...' : 'Generate Recipe'}
+                    {loading ? t('input.generating') : t('input.generate')}
                 </button>
             </form>
         </div>

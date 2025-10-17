@@ -1,0 +1,34 @@
+{
+    "header": {
+      "title": "AI Recipe Creator",
+      "subtitle": "Turn your pantry items into culinary masterpieces."
+    },
+    "footer": {
+      "poweredBy": "Powered by Google Gemini"
+    },
+    "loader": {
+      "brewing": "Brewing up a tasty recipe..."
+    },
+    "input": {
+      "title": "Enter Your Ingredients",
+      "placeholder": "e.g., tomatoes, cheese, basil",
+      "add": "Add",
+      "servings": "Servings",
+      "cuisine": "Cuisine",
+      "generate": "Generate Recipe",
+      "generating": "Creating Magic..."
+    },
+    "recipe": {
+      "error": {
+        "oops": "Oops!",
+        "message": "An unexpected error occurred. Please try again."
+      },
+      "prepTime": "Prep Time",
+      "cookTime": "Cook Time",
+      "servings": "Servings",
+      "ingredients": "Ingredients",
+      "instructions": "Instructions",
+      "essential": "Essential",
+      "optional": "Optional"
+    }
+  }

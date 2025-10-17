@@ -6,16 +6,18 @@ import RecipeDisplay from './components/RecipeDisplay';
 import Loader from './components/Loader';
 import { generateRecipe } from './services/geminiService';
 import { Recipe } from './types';
+import { useLanguage } from './contexts/LanguageContext';
 
 function App() {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { language, t } = useLanguage();
 
   const handleGenerateRecipe = async (ingredients: string[], servings: number, cuisine: string) => {
     setIsLoading(true);
     setRecipe(null);
     try {
-      const generatedRecipe = await generateRecipe(ingredients, servings, cuisine);
+      const generatedRecipe = await generateRecipe(ingredients, servings, cuisine, language);
       setRecipe(generatedRecipe);
     } catch (error) {
       console.error(error);
@@ -27,7 +29,7 @@ function App() {
         servings: '',
         ingredients: [],
         instructions: [],
-        error: 'An unexpected error occurred. Please try again.',
+        error: t('recipe.error.message'),
       };
       setRecipe(errorRecipe);
     } finally {
