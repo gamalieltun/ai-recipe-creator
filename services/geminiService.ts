@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Recipe } from '../types';
 
-// Initialize GoogleGenAI with API key from environment variables
+// Use Vite's import.meta.env instead of process.env
 const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
 
 const recipeSchema = {
@@ -45,7 +45,7 @@ export const generateRecipe = async (ingredients: string[], servings: number, cu
     Ensure the JSON output strictly adheres to the provided schema.`;
 
     try {
-        // Use the correct method to generate content with a JSON response configuration
+        // FIX: Use the correct method to generate content with a JSON response configuration.
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: prompt,
@@ -55,7 +55,7 @@ export const generateRecipe = async (ingredients: string[], servings: number, cu
             },
         });
 
-        // Extract text and parse the JSON response
+        // FIX: Extract text and parse the JSON response.
         const recipeJsonString = response.text;
         
         const cleanedJson = recipeJsonString.replace(/^```json\s*|```$/g, '').trim();
