@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../LanguageContext';
 
 interface IngredientInputProps {
     onGenerateRecipe: (ingredients: string[], servings: number, cuisine: string) => void;
     loading: boolean;
 }
 
-const cuisines = [
-    'Any', 'American', 'Chinese', 'French', 'Greek', 'Indian', 'Italian', 'Japanese', 
-    'Korean', 'Mediterranean', 'Mexican', 'Myanmar', 'Spanish', 'Thai', 'Vietnamese'
-];
-
 const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loading }) => {
+    const { t } = useLanguage();
     const [currentIngredient, setCurrentIngredient] = useState('');
     const [ingredients, setIngredients] = useState<string[]>(['chicken breast', 'rice', 'broccoli']);
     const [servings, setServings] = useState<number>(4);
     const [cuisine, setCuisine] = useState<string>('Any');
+
+    const cuisines = Object.keys(t.cuisines);
 
     const handleAddIngredient = () => {
         if (currentIngredient.trim() && !ingredients.includes(currentIngredient.trim().toLowerCase())) {
@@ -37,7 +36,7 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
     return (
         <div className="w-full max-w-2xl mx-auto">
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl shadow-lg">
-                <h2 className="text-2xl font-bold text-gray-700 mb-4">Enter Your Ingredients</h2>
+                <h2 className="text-2xl font-bold text-gray-700 mb-4">{t.ingredientInput.title}</h2>
                 <div className="flex flex-col sm:flex-row gap-4 mb-6">
                     <input
                         type="text"
@@ -49,7 +48,7 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
                                 handleAddIngredient();
                             }
                         }}
-                        placeholder="e.g., tomatoes, cheese, basil"
+                        placeholder={t.ingredientInput.placeholder}
                         className="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
                         disabled={loading}
                     />
@@ -59,7 +58,7 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
                         className="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-300 disabled:bg-indigo-300"
                         disabled={loading}
                     >
-                        Add
+                        {t.ingredientInput.addButton}
                     </button>
                 </div>
 
@@ -85,7 +84,9 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
 
                 <div className="flex flex-col sm:flex-row gap-4 mb-6">
                     <div className="flex-1">
-                        <label htmlFor="servings" className="block text-sm font-medium text-gray-700 mb-1">Servings</label>
+                        <label htmlFor="servings" className="block text-sm font-medium text-gray-700 mb-1">
+                            {t.ingredientInput.servingsLabel}
+                        </label>
                         <input
                             type="number"
                             id="servings"
@@ -97,7 +98,9 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
                         />
                     </div>
                     <div className="flex-1">
-                        <label htmlFor="cuisine" className="block text-sm font-medium text-gray-700 mb-1">Cuisine</label>
+                        <label htmlFor="cuisine" className="block text-sm font-medium text-gray-700 mb-1">
+                            {t.ingredientInput.cuisineLabel}
+                        </label>
                         <select
                             id="cuisine"
                             value={cuisine}
@@ -106,18 +109,21 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
                             style={{ backgroundImage: `url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>')`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.75rem center', backgroundSize: '1.5em' }}
                             disabled={loading}
                         >
-                            {cuisines.map(c => <option key={c} value={c}>{c}</option>)}
+                            {cuisines.map(c => (
+                                <option key={c} value={c}>
+                                    {t.cuisines[c]}
+                                </option>
+                            ))}
                         </select>
                     </div>
                 </div>
-
 
                 <button
                     type="submit"
                     className="w-full bg-green-600 text-white font-bold py-4 px-6 rounded-lg hover:bg-green-700 transition duration-300 disabled:bg-green-300 text-lg"
                     disabled={loading || ingredients.length === 0}
                 >
-                    {loading ? 'Creating Magic...' : 'Generate Recipe'}
+                    {loading ? t.ingredientInput.generatingButton : t.ingredientInput.generateButton}
                 </button>
             </form>
         </div>
