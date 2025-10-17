@@ -1,0 +1,5 @@
+{
+  "name": "AI Recipe Creator",
+  "description": "A static web application that uses the Gemini API to generate creative recipes from a list of ingredients provided by the user. Perfect for finding new ways to use what you have in your pantry.",
+  "requestFramePermissions": []
+}
