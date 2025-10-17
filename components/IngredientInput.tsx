@@ -40,6 +40,7 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
         <div className="w-full max-w-2xl mx-auto">
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded-xl shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-700 mb-4">{t('input.title')}</h2>
+
                 <div className="flex flex-col sm:flex-row gap-4 mb-6">
                     <input
                         type="text"
@@ -88,16 +89,20 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ onGenerateRecipe, loa
                 <div className="flex flex-col sm:flex-row gap-4 mb-6">
                     <div className="flex-1">
                         <label htmlFor="servings" className="block text-sm font-medium text-gray-700 mb-1">{t('input.servings')}</label>
-                        <input
-                            type="number"
+                        <select
                             id="servings"
                             value={servings}
-                            onChange={(e) => setServings(Math.max(1, parseInt(e.target.value, 10) || 1))}
-                            min="1"
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+                            onChange={(e) => setServings(parseInt(e.target.value, 10))}
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition bg-white appearance-none"
+                            style={{ backgroundImage: `url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>')`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 0.75rem center', backgroundSize: '1.5em' }}
                             disabled={loading}
-                        />
+                        >
+                            {Array.from({ length: 40 }, (_, i) => i + 1).map(num => (
+                                <option key={num} value={num}>{num}</option>
+                            ))}
+                        </select>
                     </div>
+
                     <div className="flex-1">
                         <label htmlFor="cuisine" className="block text-sm font-medium text-gray-700 mb-1">{t('input.cuisine')}</label>
                         <select
