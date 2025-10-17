@@ -6,22 +6,28 @@ const Header: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <header className="w-full bg-white/80 backdrop-blur-sm shadow-md sticky top-0 z-10">
-      <div className="container mx-auto px-4 py-4 flex flex-col items-center sm:flex-row sm:justify-between relative">
-        {/* Text Section */}
-        <div className="text-center sm:text-left">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 tracking-tight">
+    <>
+      {/* Header Section */}
+      <header className="w-full bg-white/80 backdrop-blur-sm shadow-md sticky top-0 z-20">
+        <div className="container mx-auto px-4 py-5 text-center">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 tracking-tight drop-shadow-sm">
             {t('header.title')}
           </h1>
-          <p className="text-gray-600 mt-1">{t('header.subtitle')}</p>
+          <p className="text-gray-600 mt-1 text-base sm:text-lg">
+            {t('header.subtitle')}
+          </p>
         </div>
+      </header>
 
-        {/* Language Switcher Section */}
-        <div className="mt-3 sm:mt-0 sm:absolute sm:right-4 sm:top-1/2 sm:-translate-y-1/2">
-          <LanguageSwitcher />
+      {/* Language Switcher Section */}
+      <div className="w-full bg-gray-50 border-t border-gray-200 py-3 shadow-sm">
+        <div className="container mx-auto flex justify-center">
+          <div className="inline-flex gap-2">
+            <LanguageSwitcher />
+          </div>
         </div>
       </div>
-    </header>
+    </>
   );
 };
 
